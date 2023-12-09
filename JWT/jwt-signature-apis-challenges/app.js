@@ -31,8 +31,8 @@ app.post('/jwt/none', (req, res) => { //None endpoint
     } else if (jwt_b64_dec.header.alg == 'none') {
       secret_key = '';
     }
-    JWT.verify(jwt_token, secret_key, { algorithms: ['none', 'HS256'], complete: true, audience: 'https://127.0.0.1/jwt/none' }, (err, decoded_token) => {
-      if (err) {
+    JWT.verify(jwt_token, secret_key, { algorithms: ['HS256'], complete: true, audience: 'https://127.0.0.1/jwt/none' }, (err, decoded_token) => {
+      if (err) { // Edited: 34th line, algorithm 'none' was deleted in order to protect against JWT none algorithm attack
         res.status(400).json(err);
       } else {
         const success = {
